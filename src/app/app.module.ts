@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { GitRepositoriesComponent } from './features/git-repositories/git-repositories.component';
 import { CommonComponentsModule } from '@libs/common';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	declarations: [
@@ -14,7 +15,8 @@ import { AppRoutingModule } from './app-routing.module';
 	imports: [
 		BrowserModule,
 		CommonComponentsModule,
-		AppRoutingModule
+		AppRoutingModule,
+		HttpClientModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
