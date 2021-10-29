@@ -11,9 +11,9 @@ export class GitPublicApiService {
 	constructor(private httpClient: HttpClient) {
 	}
 
-	public getRepositories(): Observable<GithubSearchResultDto<any>> {
+	public getRepositories(repoName: string): Observable<GithubSearchResultDto<any>> {
 		let params: HttpParams = new HttpParams();
-		params = params.append('q', 'org:oshuej');
+		params = params.append('q', `${repoName} in:name`);
 		params = params.append('type', 'Repositories');
 		params = params.append('per_page', '10');
 		params = params.append('page', '1');
