@@ -9,6 +9,10 @@
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
 		"sourceMap": true,
+		"paths": {
+			"@libs/services": ["src/libs/api-services/src/index.ts"],
+			"@libs/common": ["src/libs/common/src/index.ts"]
+		},
 		"declaration": false,
 		"downlevelIteration": true,
 		"experimentalDecorators": true,

@@ -1,0 +1,27 @@
+{
+	"extends": "../../../tsconfig.app.json",
+	"compilerOptions": {
+		"outDir": "../../../dist/out-tsc/libs/common",
+		"target": "es2017",
+		"module": "es2020",
+		"moduleResolution": "node",
+		"declaration": true,
+		"sourceMap": true,
+		"inlineSources": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"resolveJsonModule": true,
+		"importHelpers": true,
+		"types": [],
+		"lib": [
+			"es2018",
+			"dom"
+		]
+	},
+	"angularCompilerOptions": {
+		"enableI18nLegacyMessageIdFormat": false,
+		"strictInjectionParameters": true,
+		"strictInputAccessModifiers": true,
+		"strictTemplates": true
+	}
+}

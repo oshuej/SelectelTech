@@ -100,6 +100,44 @@
 					}
 				}
 			}
+		},
+		"common": {
+			"root": "src/libs/common/",
+			"sourceRoot": "src/libs/common/src",
+			"projectType": "library",
+			"prefix": "st",
+			"architect": {
+				"lint": {
+					"builder": "@angular-devkit/build-angular:tslint",
+					"options": {
+						"tsConfig": [
+							"libs/common/tsconfig.lib.json"
+						],
+						"exclude": [
+							"**/node_modules/**"
+						]
+					}
+				}
+			}
+		},
+		"api-services": {
+			"root": "src/libs/api-services",
+			"sourceRoot": "src/libs/api-services/src",
+			"projectType": "library",
+			"prefix": "st",
+			"architect": {
+				"lint": {
+					"builder": "@angular-devkit/build-angular:tslint",
+					"options": {
+						"tsConfig": [
+							"libs/api-services/tsconfig.lib.json"
+						],
+						"exclude": [
+							"**/node_modules/**"
+						]
+					}
+				}
+			}
 		}
 	},
 	"defaultProject": "SelectelTech"
