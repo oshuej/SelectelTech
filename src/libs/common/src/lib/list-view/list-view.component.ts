@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ColumnDto } from '@libs/common';
 
 @Component({
 	selector: 'list-view',
@@ -8,7 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ListViewComponent implements OnInit {
 
 	@Input()
-	public testTitle: string | null = null;
+	public data: any[] = [];
+	@Input()
+	public totalCount: number | undefined;
+	@Input()
+	public columns: ColumnDto[] = [];
 
 	constructor() { }
 
