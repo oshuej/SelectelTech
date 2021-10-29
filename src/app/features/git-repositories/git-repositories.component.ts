@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GitPublicApiService } from '@libs/services';
-import { catchError, finalize } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, finalize, takeUntil } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
 import { ColumnDto } from '@libs/common';
 
 @Component({
@@ -9,7 +9,7 @@ import { ColumnDto } from '@libs/common';
 	templateUrl: './git-repositories.component.html',
 	styleUrls: ['./git-repositories.component.css']
 })
-export class GitRepositoriesComponent implements OnInit {
+export class GitRepositoriesComponent implements OnInit, OnDestroy {
 
 	public repositories: Array<any> = [];
 	public totalCount: number = 0;
@@ -27,7 +27,9 @@ export class GitRepositoriesComponent implements OnInit {
 			ngModelName: 'score',
 			sort: false
 		}
-	]
+	];
+
+	private destroy$ = new Subject<void>();
 
 	constructor(private gitPublicApiService: GitPublicApiService) {
 	}
@@ -36,9 +38,14 @@ export class GitRepositoriesComponent implements OnInit {
 		this.loadRepositories();
 	}
 
+	ngOnDestroy() {
+		this.destroy$.next();
+		this.destroy$.complete();
+	}
+
 	private loadRepositories(): void {
 		this.isLoading = true;
-		this.gitPublicApiService.getRepositories()
+		this.gitPublicApiService.getRepositories('aa')
 			.pipe(
 				finalize(() => {
 					this.isLoading = false;
@@ -48,7 +55,8 @@ export class GitRepositoriesComponent implements OnInit {
 					console.warn(error);
 					// TODO ADD EROR HANDLER WITH MODAL
 					return of(null);
-				})
+				}),
+				takeUntil(this.destroy$),
 			).subscribe((data) => {
 				if (!!data) {
 					this.repositories = data.items;
