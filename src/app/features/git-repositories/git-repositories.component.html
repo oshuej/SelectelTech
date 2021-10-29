@@ -1,2 +1,12 @@
 <filter-wrapper></filter-wrapper>
-<list-view [testTitle]="'test'"></list-view>
+<list-view *ngIf="hasData, else noDataTemplate"
+           [data]="repositories"
+           [totalCount]="totalCount"
+           [columns]="columns">
+</list-view>
+<ng-template #noDataTemplate>
+	<div *ngIf="isLoading, else noResults">LOADING</div>
+	<ng-template #noResults>
+		No Repos
+	</ng-template>
+</ng-template>
