@@ -1,1 +1,12 @@
-<p>filter works!</p>
+<div>
+	<ng-container *ngFor="let field of filterConfig.fields">
+		<span class="p-float-label">
+			<input id="{{field.label}}-input"
+			       type="text"
+			       pInputText
+			       [(ngModel)]="filterConfig.resultDto[field.ngModelName]">
+			<label for="{{field.label}}-input">{{field.label}}</label>
+		</span>
+	</ng-container>
+	<button (click)="onApplyClicked()">Apply</button>
+</div>
