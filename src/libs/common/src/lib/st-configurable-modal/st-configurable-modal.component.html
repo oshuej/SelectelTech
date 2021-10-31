@@ -1,0 +1,23 @@
+<ng-container *ngIf="isContentResolved">
+	<div>
+		<div class="st-modal-body">
+			<ng-container *ngIf="!!body, else stringBodyTemplate" [ngTemplateOutlet]="body"></ng-container>
+			<ng-template #stringBodyTemplate>
+				<div [innerHTML]="getSanitizedTemplate(modalConfig.body)"></div>
+			</ng-template>
+		</div>
+
+		<div class="st-modal-footer">
+			<div class="st-btn-group" *ngIf="modalConfig?.buttons && modalConfig.buttons.length">
+				<ng-container *ngFor="let button of modalConfig.buttons, index as index">
+					<button *ngIf="!button.hidden"
+					        [ngClass]="button.cssClass"
+					        [ngStyle]="{'order': button.order ? button.order.toString() : index.toString()}"
+					        type="button"
+					        [disabled]="button.disabled"
+					        (click)="button.callback($event)">{{button.text}}</button>
+				</ng-container>
+			</div>
+		</div>
+	</div>
+</ng-container>

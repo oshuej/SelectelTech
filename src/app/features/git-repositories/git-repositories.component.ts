@@ -2,13 +2,21 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GitPublicApiService } from '@libs/services';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
-import { IColumnConfig, IFilterConfig } from '@libs/common';
+import {
+	IColumnConfig,
+	IFilterConfig,
+	StConfigurableModalConfig,
+	StConfigurableModalComponent,
+	StConfigurableModalButtonConfig
+} from '@libs/common';
 import { GitRepositoriesFilterResultDto } from './dto/git-repositories-filter-result.dto';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
 	selector: 'git-repositories',
 	templateUrl: './git-repositories.component.html',
-	styleUrls: ['./git-repositories.component.css']
+	styleUrls: ['./git-repositories.component.css'],
+	providers: [DialogService]
 })
 export class GitRepositoriesComponent implements OnInit, OnDestroy {
 
@@ -21,9 +29,11 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 
 	public filterConfig!: IFilterConfig<GitRepositoriesFilterResultDto>;
 
+	private openedModal!: DynamicDialogRef;
 	private destroy$: Subject<void> = new Subject<void>();
 
-	constructor(private gitPublicApiService: GitPublicApiService) {
+	constructor(private gitPublicApiService: GitPublicApiService,
+	            private dialogService: DialogService) {
 	}
 
 	ngOnInit(): void {
@@ -51,11 +61,12 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 				}),
 				catchError((error, caught) => {
 					console.warn(error);
-					// TODO ADD EROR HANDLER WITH MODAL
+					this.openErrorModal(error);
 					return of(null);
 				}),
 				takeUntil(this.destroy$),
-			).subscribe((data) => {
+			)
+			.subscribe((data) => {
 				if (!!data) {
 					this.repositories = data.items;
 					this.totalCount = data.total_count;
@@ -64,6 +75,19 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 					this.totalCount = 0;
 				}
 			});
+	}
+
+	private openErrorModal(error: Error): void {
+		const modalConfig: StConfigurableModalConfig = new StConfigurableModalConfig();
+		modalConfig.body = this.getModalBodyByError(error);
+		modalConfig.buttons = this.getModalButtons();
+		this.openedModal = this.dialogService.open(StConfigurableModalComponent, {
+			header: 'Something went wrong',
+			data: modalConfig,
+			width: '40%',
+			contentStyle: {"max-height": "500px", "overflow": "auto"},
+			baseZIndex: 10000
+		});
 	}
 
 	private initColumns(): void {
@@ -94,5 +118,34 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 			resultDto: GitRepositoriesFilterResultDto.getDefaultDto(),
 			applyFilterValidator: this.applyFilterValidator
 		}
+	}
+
+	private getModalBodyByError(error: Error): string {
+		return `
+			<div>Error Message From Server</div>
+			<div>${error.message}</div>
+		`;
+	}
+
+	private getModalButtons(): Array<StConfigurableModalButtonConfig> {
+		return [
+			StConfigurableModalButtonConfig.init({
+				text: 'Ok',
+				cssClass: 'submit-button',
+				callback: () => this.closeModal()
+			}),
+			StConfigurableModalButtonConfig.init({
+				text: 'Ok, Try Again',
+				cssClass: 'submit-button',
+				callback: () => {
+					this.closeModal();
+					this.loadRepositories();
+				}
+			})
+		];
+	}
+
+	private closeModal(): void {
+		this.openedModal.close();
 	}
 }
