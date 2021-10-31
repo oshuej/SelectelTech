@@ -3,11 +3,11 @@
 		<filter-wrapper [filterConfig]="filterConfig"
 		                (onFilterChanged)="onFilterChanged()">
 		</filter-wrapper>
-		<list-view *ngIf="hasData, else noDataTemplate"
-		           [data]="repositories"
-		           [totalCount]="totalCount"
-		           [columns]="columns">
-		</list-view>
+		<st-table *ngIf="hasData, else noDataTemplate"
+		          [data]="repositories"
+		          [totalCount]="totalCount"
+		          [columns]="columns">
+		</st-table>
 		<ng-template #noDataTemplate>
 			<no-data [isLoading]="isLoading"></no-data>
 		</ng-template>

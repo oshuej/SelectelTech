@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GitPublicApiService } from '@libs/services';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
-import { IColumnDto, IFilterConfig } from '@libs/common';
+import { IColumnConfig, IFilterConfig } from '@libs/common';
 import { GitRepositoriesFilterResultDto } from './dto/git-repositories-filter-result.dto';
 
 @Component({
@@ -17,7 +17,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 	public isLoading = true;
 	public hasData = false;
 
-	public columns!: Array<IColumnDto>;
+	public columns!: Array<IColumnConfig>;
 
 	public filterConfig!: IFilterConfig<GitRepositoriesFilterResultDto>;
 
