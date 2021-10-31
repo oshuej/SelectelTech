@@ -1,8 +1,8 @@
 
 export interface IFilterConfig<T> {
 	fields: Array<IFilterFieldsConfig<T>>;
-	applyFilterValidator: (filterConfig: IFilterConfig<T>) => boolean;
 	resultDto: T;
+	applyFilterValidator?: (filterConfig: IFilterConfig<T>) => boolean;
 }
 
 export interface IFilterFieldsConfig<T> {
