@@ -6,6 +6,7 @@ import { GitRepositoriesComponent } from './features/git-repositories/git-reposi
 import { CommonComponentsModule } from '@libs/common';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [
@@ -14,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 	],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		CommonComponentsModule,
 		AppRoutingModule,
 		HttpClientModule
