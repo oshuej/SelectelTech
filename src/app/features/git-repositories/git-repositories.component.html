@@ -3,7 +3,7 @@
 		<st-filter [filterConfig]="filterConfig"
 		           (onFilterChanged)="onFilterChanged()">
 		</st-filter>
-		<st-table *ngIf="hasData, else noDataTemplate"
+		<st-table *ngIf="hasData && !isLoading, else noDataTemplate"
 		          [data]="repositories"
 		          [totalCount]="totalCount"
 		          [columns]="columns">
