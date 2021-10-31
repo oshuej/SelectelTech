@@ -1,4 +1,4 @@
-export interface ColumnDto {
+export interface IColumnDto {
 	header: string;
 	ngModelName: string;
 	sort: ColumnSortingType;
