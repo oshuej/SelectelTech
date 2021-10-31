@@ -58,7 +58,6 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 			.pipe(
 				finalize(() => {
 					this.isLoading = false;
-					this.hasData = !!this.repositories && this.repositories.length > 0;
 				}),
 				catchError((error: HttpErrorResponse, caught) => {
 					console.warn(error);
@@ -75,6 +74,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 					this.repositories = [];
 					this.totalCount = 0;
 				}
+				this.hasData = !!this.repositories && this.repositories.length > 0;
 			});
 	}
 
