@@ -1,0 +1,9 @@
+.st-filter-container {
+	display: flex;
+	margin: 20px;
+	justify-content: center;
+}
+
+.st-filter-field {
+	margin: 0 10px;
+}

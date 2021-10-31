@@ -1,12 +1,14 @@
-<div>
+<div class="st-filter-container">
 	<ng-container *ngFor="let field of filterConfig.fields">
-		<span class="p-float-label">
-			<input id="{{field.label}}-input"
-			       type="text"
-			       pInputText
-			       [(ngModel)]="filterConfig.resultDto[field.ngModelName]">
-			<label for="{{field.label}}-input">{{field.label}}</label>
-		</span>
+		<div class="st-filter-field">
+			<span class="p-float-label">
+				<input id="{{field.label}}-input"
+				       type="text"
+				       pInputText
+				       [(ngModel)]="filterConfig.resultDto[field.ngModelName]">
+				<label for="{{field.label}}-input">{{field.label}}</label>
+			</span>
+		</div>
 	</ng-container>
 	<button (click)="onApplyClicked()">Apply</button>
 </div>
