@@ -1,9 +1,25 @@
 .st-filter-container {
+	margin-bottom: 20px;
+}
+
+.st-filter-fields-container {
 	display: flex;
 	margin: 20px;
 	justify-content: center;
+	text-align: center;
 }
 
 .st-filter-field {
 	margin: 0 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.required {
+	color: red;
+}
+
+.btn-group {
+	display: flex;
+	justify-content: flex-end;
 }

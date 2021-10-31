@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { StBasicPageLayout } from './st-basic-page-layout/st-basic-page-layout.component';
 import { StNoDataTemplate } from './st-no-data/st-no-data-template.component';
 import { StConfigurableModalComponent } from './st-configurable-modal/st-configurable-modal.component';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
 	imports: [
@@ -15,6 +16,7 @@ import { StConfigurableModalComponent } from './st-configurable-modal/st-configu
 		TableModule,
 		InputTextModule,
 		FormsModule,
+		ButtonModule,
 	],
 	exports: [
 		StFilter,

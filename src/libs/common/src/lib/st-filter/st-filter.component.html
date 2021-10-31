@@ -1,14 +1,24 @@
 <div class="st-filter-container">
-	<ng-container *ngFor="let field of filterConfig.fields">
-		<div class="st-filter-field">
-			<span class="p-float-label">
-				<input id="{{field.label}}-input"
-				       type="text"
-				       pInputText
-				       [(ngModel)]="filterConfig.resultDto[field.ngModelName]">
-				<label for="{{field.label}}-input">{{field.label}}</label>
-			</span>
-		</div>
-	</ng-container>
-	<button (click)="onApplyClicked()">Apply</button>
+
+	<div class="st-filter-fields-container">
+		<ng-container *ngFor="let field of filterConfig.fields">
+			<div class="st-filter-field">
+				<label class="label">
+					<span>{{field.label}}</span>
+					<em *ngIf="field.required" class="required">*</em>
+				</label>
+				<span class="p-input-icon-left">
+						<i class="pi pi-search"></i>
+						<input type="text"
+						       pInputText
+						       placeholder="{{field.label}}"
+						       [(ngModel)]="filterConfig.resultDto[field.ngModelName]"/>
+					</span>
+			</div>
+		</ng-container>
+	</div>
+
+	<div class="btn-group">
+		<button pButton type="button" label="Apply" class="p-button-rounded" (click)="onApplyClicked()"></button>
+	</div>
 </div>
