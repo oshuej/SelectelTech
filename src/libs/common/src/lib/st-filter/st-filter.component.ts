@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IFilterConfig } from '@libs/common';
 
 @Component({
-	selector: 'filter-wrapper',
-	templateUrl: './filter-wrapper.component.html',
-	styleUrls: ['./filter-wrapper.component.css']
+	selector: 'st-filter',
+	templateUrl: './st-filter.component.html',
+	styleUrls: ['./st-filter.component.css']
 })
-export class FilterWrapperComponent<T> {
+export class StFilter<T> {
 
 	@Input()
 	public filterConfig!: IFilterConfig<T>;

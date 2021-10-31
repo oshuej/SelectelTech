@@ -1,8 +1,8 @@
 <basic-page-layout>
 	<ng-container main-content>
-		<filter-wrapper [filterConfig]="filterConfig"
-		                (onFilterChanged)="onFilterChanged()">
-		</filter-wrapper>
+		<st-filter [filterConfig]="filterConfig"
+		           (onFilterChanged)="onFilterChanged()">
+		</st-filter>
 		<st-table *ngIf="hasData, else noDataTemplate"
 		          [data]="repositories"
 		          [totalCount]="totalCount"
