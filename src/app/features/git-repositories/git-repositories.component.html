@@ -1,14 +1,15 @@
-<filter-wrapper [filterConfig]="filterConfig"
-                (onFilterChanged)="onFilterChanged()">
-</filter-wrapper>
-<list-view *ngIf="hasData, else noDataTemplate"
-           [data]="repositories"
-           [totalCount]="totalCount"
-           [columns]="columns">
-</list-view>
-<ng-template #noDataTemplate>
-	<div *ngIf="isLoading, else noResults">LOADING</div>
-	<ng-template #noResults>
-		<div>No Repos</div>
-	</ng-template>
-</ng-template>
+<basic-page-layout>
+	<ng-container main-content>
+		<filter-wrapper [filterConfig]="filterConfig"
+		                (onFilterChanged)="onFilterChanged()">
+		</filter-wrapper>
+		<list-view *ngIf="hasData, else noDataTemplate"
+		           [data]="repositories"
+		           [totalCount]="totalCount"
+		           [columns]="columns">
+		</list-view>
+		<ng-template #noDataTemplate>
+			<no-data [isLoading]="isLoading"></no-data>
+		</ng-template>
+	</ng-container>
+</basic-page-layout>

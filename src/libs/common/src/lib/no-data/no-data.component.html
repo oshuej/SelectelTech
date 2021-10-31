@@ -1,0 +1,6 @@
+<ng-template>
+	<div *ngIf="isLoading, else noResults">Loading</div>
+	<ng-template #noResults>
+		<div>No Repositories found</div>
+	</ng-template>
+</ng-template>
