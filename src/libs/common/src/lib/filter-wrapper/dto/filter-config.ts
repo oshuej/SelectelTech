@@ -1,11 +1,11 @@
 
 export interface IFilterConfig<T> {
-	fields: Array<IFilterFieldsConfig>;
+	fields: Array<IFilterFieldsConfig<T>>;
 	applyFilterValidator: (filterConfig: IFilterConfig<T>) => boolean;
 	resultDto: T;
 }
 
-export interface IFilterFieldsConfig {
+export interface IFilterFieldsConfig<T> {
 	label: string;
-	ngModelName: string;
+	ngModelName: keyof T;
 }
