@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IFilterConfig } from '@libs/common';
+import { IFilterConfig } from './dto/filter-config';
 
 @Component({
 	selector: 'st-filter',

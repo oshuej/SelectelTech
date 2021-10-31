@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { StConfigurableModalConfig } from '@libs/common';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { StConfigurableModalConfig } from './dto/st-configurable-modal-config';
 
 @Component({
 	selector: 'st-configurable-modal',

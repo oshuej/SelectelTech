@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IColumnConfig } from '@libs/common';
+import { IColumnConfig } from './dto/IColumnConfig';
 
 @Component({
 	selector: 'st-table',

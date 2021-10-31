@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GitPublicApiService } from '@libs/services';
+import { GitPublicApiService, IGitSearchRequestErrorDto } from '@libs/services';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
 import {
