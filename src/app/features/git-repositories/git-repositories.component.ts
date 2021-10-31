@@ -45,7 +45,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 
 	private loadRepositories(): void {
 		this.isLoading = true;
-		this.gitPublicApiService.getRepositories('aa')
+		this.gitPublicApiService.getRepositories(this.filterConfig.resultDto)
 			.pipe(
 				finalize(() => {
 					this.isLoading = false;
