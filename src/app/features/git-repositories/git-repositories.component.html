@@ -1,4 +1,4 @@
-<basic-page-layout>
+<st-basic-page-layout>
 	<ng-container main-content>
 		<st-filter [filterConfig]="filterConfig"
 		           (onFilterChanged)="onFilterChanged()">
@@ -9,7 +9,7 @@
 		          [columns]="columns">
 		</st-table>
 		<ng-template #noDataTemplate>
-			<no-data [isLoading]="isLoading"></no-data>
+			<st-no-data [isLoading]="isLoading"></st-no-data>
 		</ng-template>
 	</ng-container>
-</basic-page-layout>
+</st-basic-page-layout>

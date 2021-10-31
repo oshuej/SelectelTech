@@ -5,8 +5,8 @@ import { StTable } from './st-table/st-table.component';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { BasicPageLayoutComponent } from './basic-page-layout/basic-page-layout.component';
-import { NoDataComponent } from './no-data/no-data.component';
+import { StBasicPageLayout } from './st-basic-page-layout/st-basic-page-layout.component';
+import { StNoDataTemplate } from './st-no-data/st-no-data-template.component';
 
 @NgModule({
 	imports: [
@@ -18,14 +18,14 @@ import { NoDataComponent } from './no-data/no-data.component';
 	exports: [
 		StFilter,
 		StTable,
-		BasicPageLayoutComponent,
-		NoDataComponent
+		StBasicPageLayout,
+		StNoDataTemplate
 	],
 	declarations: [
 		StFilter,
 		StTable,
-		BasicPageLayoutComponent,
-		NoDataComponent
+		StBasicPageLayout,
+		StNoDataTemplate
 	]
 })
 export class CommonComponentsModule {}
