@@ -13,7 +13,7 @@ export class ListViewComponent implements OnInit {
 	@Input()
 	public totalCount!: number;
 	@Input()
-	public columns!: IColumnDto[];
+	public columns!: Array<IColumnDto>;
 
 	constructor() { }
 

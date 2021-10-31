@@ -1,4 +1,6 @@
-<filter-wrapper></filter-wrapper>
+<filter-wrapper [filterConfig]="filterConfig"
+                (onFilterChanged)="onFilterChanged()">
+</filter-wrapper>
 <list-view *ngIf="hasData, else noDataTemplate"
            [data]="repositories"
            [totalCount]="totalCount"
