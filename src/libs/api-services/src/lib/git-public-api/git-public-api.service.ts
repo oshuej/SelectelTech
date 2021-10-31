@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IGitSearchResultDto } from './dto/git-search-result.dto';
 import { GitRepositoriesFilterResultDto } from '../../../../app/features/git-repositories/dto/git-repositories-filter-result.dto';
 import { IGitRepositoriesSearchItemDto } from './dto/git-repositories-search-item.dto';
-import { URL_CONSTANTS } from '../../../../app/constants';
+import { URL_CONSTANTS } from '../../../../../app/constants';
 
 @Injectable({
 	providedIn: 'root'
