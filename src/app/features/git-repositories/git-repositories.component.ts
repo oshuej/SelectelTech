@@ -11,6 +11,7 @@ import {
 } from '@libs/common';
 import { GitRepositoriesFilterResultDto } from './dto/git-repositories-filter-result.dto';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'git-repositories',
@@ -59,7 +60,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 					this.isLoading = false;
 					this.hasData = !!this.repositories && this.repositories.length > 0;
 				}),
-				catchError((error, caught) => {
+				catchError((error: HttpErrorResponse, caught) => {
 					console.warn(error);
 					this.openErrorModal(error);
 					return of(null);
@@ -77,7 +78,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	private openErrorModal(error: Error): void {
+	private openErrorModal(error: HttpErrorResponse): void {
 		const modalConfig: StConfigurableModalConfig = new StConfigurableModalConfig();
 		modalConfig.body = this.getModalBodyByError(error);
 		modalConfig.buttons = this.getModalButtons();
@@ -120,10 +121,13 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	private getModalBodyByError(error: Error): string {
+	private getModalBodyByError(httpErrorResponse: HttpErrorResponse): string {
 		return `
-			<div>Error Message From Server</div>
-			<div>${error.message}</div>
+			<div>Error Info:</div>
+			<div>
+				<span>Status: ${httpErrorResponse.status}</span>
+				<span>Message: ${(httpErrorResponse.error as IGitSearchRequestErrorDto).message}</span>
+			</div>
 		`;
 	}
 
