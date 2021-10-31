@@ -113,8 +113,8 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 	private initFilterConfig(): void {
 		this.filterConfig = {
 			fields: [
-				{ label: 'Username', ngModelName: 'username' },
-				{ label: 'Repository Name', ngModelName: 'repoName' }
+				{ label: 'Username', ngModelName: 'username', required: false },
+				{ label: 'Repository Name', ngModelName: 'repoName', required: true }
 			],
 			resultDto: GitRepositoriesFilterResultDto.getDefaultDto(),
 			applyFilterValidator: this.applyFilterValidator

@@ -8,4 +8,5 @@ export interface IFilterConfig<T> {
 export interface IFilterFieldsConfig<T> {
 	label: string;
 	ngModelName: keyof T;
+	required?: boolean;
 }
