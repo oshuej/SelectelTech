@@ -18,7 +18,8 @@ export class StFilter<T> {
 	}
 
 	public onApplyClicked(): void {
-		if (!!this.filterConfig.applyFilterValidator && this.filterConfig.applyFilterValidator(this.filterConfig)) {
+		if (!this.filterConfig.applyFilterValidator ||
+			(!!this.filterConfig.applyFilterValidator && this.filterConfig.applyFilterValidator(this.filterConfig))) {
 			this.onFilterChanged.emit(this.filterConfig.resultDto);
 		}
 	}
