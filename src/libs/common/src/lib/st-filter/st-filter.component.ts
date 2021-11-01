@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FilterConfig } from './dto/filter-config';
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
 	selector: 'st-filter',
@@ -21,7 +21,7 @@ export class StFilter<T> {
 	}
 
 	public getErrorMessage(control: AbstractControl): string {
-		return control.hasError('minlength') ? COMMON_ERRORS_HANDLERS.minlength(control): COMMON_ERRORS_HANDLERS.required(control);
+		return COMMON_ERRORS_HANDLERS[Object.keys((<ValidationErrors>control.errors))[0]](control);
 	}
 
 	public onSubmit(): void {
@@ -34,5 +34,6 @@ export class StFilter<T> {
 // todo should be moved to the library in the future
 export const COMMON_ERRORS_HANDLERS: { [p: string]: (control: AbstractControl) => string } = {
 	minlength: (control) => `The minimum length is ${control.getError('minlength').requiredLength} Characters!`,
+	pattern: (control) => `Only the following characters are allowed: ${control.getError('pattern').requiredPattern}`,
 	required: () => 'Field is Required'
 }

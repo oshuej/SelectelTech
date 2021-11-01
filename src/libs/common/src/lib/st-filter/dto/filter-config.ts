@@ -25,6 +25,7 @@ export abstract class FilterFieldConfig<T> {
 export class FilterTextFieldConfig<T> extends FilterFieldConfig<T> {
 	public minLength!: number;
 	public maxLength!: number;
+	public pattern!: string | RegExp;
 
 	constructor(label: string, ngModelName: Extract<keyof T, string>, required?: boolean) {
 		super(label, ngModelName, required);
@@ -38,6 +39,7 @@ export class FilterTextFieldConfig<T> extends FilterFieldConfig<T> {
 		);
 		config.minLength = (<FilterTextFieldConfig<T>> params).minLength || 0;
 		config.maxLength = (<FilterTextFieldConfig<T>> params).maxLength || 40;
+		config.pattern = (<FilterTextFieldConfig<T>> params).pattern || '';
 		return config;
 	}
 }

@@ -17,6 +17,7 @@
 						       [required]="!!field.required"
 						       [minlength]="field.minLength"
 						       [maxLength]="field.maxLength"
+						       [pattern]="field.pattern"
 						       [(ngModel)]="filterConfig.resultDto[field.ngModelName]"/>
 					</span>
 					<div *ngIf="!!filterForm.form.controls[field.ngModelName] && !filterForm.form.controls[field.ngModelName]?.valid"

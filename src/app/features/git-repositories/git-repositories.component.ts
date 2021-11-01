@@ -134,10 +134,10 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 		this.filterConfig = {
 			fields: [
 				FilterTextFieldConfig.init<GitRepositoriesFilterResultDto>(
-					{ label: 'Username', ngModelName: 'username', required: false }
+					{ label: 'Username', ngModelName: 'username', required: false, pattern: '^[a-zA-Z0-9-_.]+$' }
 				),
 				FilterTextFieldConfig.init<GitRepositoriesFilterResultDto>(
-					{ label: 'Repository Name', ngModelName: 'repoName', required: true, minLength: 3 }
+					{ label: 'Repository Name', ngModelName: 'repoName', required: true, minLength: 3, pattern: '^[a-zA-Z0-9-_.]+$' }
 				)
 			],
 			resultDto: GitRepositoriesFilterResultDto.getDefaultDto()
