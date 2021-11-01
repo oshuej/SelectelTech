@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GitPublicApiService, IGitSearchRequestErrorDto } from '@libs/services';
+import { GitPublicApiService, IGitSearchRequestErrorDto, IPageInfoDto } from '@libs/services';
 import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
 import {
@@ -30,6 +30,8 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 	public columns!: Array<IColumnConfig>;
 
 	public filterConfig!: IFilterConfig<GitRepositoriesFilterResultDto>;
+	public pageInfo: IPageInfoDto = { page: 1, perPage: 10, firstElementOnPage: 0 };
+	public rowsPerPageOptions: number[] = [this.pageInfo.perPage, this.pageInfo.perPage * 2, this.pageInfo.perPage * 3]
 
 	private openedModal!: DynamicDialogRef;
 	private destroy$: Subject<void> = new Subject<void>();
@@ -55,10 +57,17 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 		this.loadRepositories();
 	}
 
+	public paginate(pagination: IPagination): void {
+		this.pageInfo.perPage = pagination.rows;
+		this.pageInfo.page = pagination.page + 1; // + 1, because paginator starting count by 0, by github api by 1
+		this.pageInfo.firstElementOnPage = pagination.first;
+		this.loadRepositories();
+	}
+
 	private loadRepositories(): void {
 		this.isLoading = true;
 		this.setFilterResultDtoQueryToUrl();
-		this.gitPublicApiService.getRepositories(this.filterConfig.resultDto)
+		this.gitPublicApiService.getRepositories(this.filterConfig.resultDto, this.pageInfo)
 			.pipe(
 				finalize(() => {
 					this.isLoading = false;
@@ -169,4 +178,11 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 			relativeTo: this.activatedRoute, queryParams: queryParamsFromFilter
 		});
 	}
+}
+
+interface IPagination {
+	first: number;
+	page: number;
+	pageCount: number;
+	rows: number;
 }

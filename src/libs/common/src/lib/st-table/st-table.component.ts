@@ -11,8 +11,6 @@ export class StTable implements OnInit {
 	@Input()
 	public data!: any[];
 	@Input()
-	public totalCount!: number;
-	@Input()
 	public columns!: Array<IColumnConfig>;
 
 	constructor() { }

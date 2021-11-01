@@ -3,11 +3,19 @@
 		<st-filter [filterConfig]="filterConfig"
 		           (onFilterChanged)="onFilterChanged()">
 		</st-filter>
-		<st-table *ngIf="hasData && !isLoading, else noDataTemplate"
-		          [data]="repositories"
-		          [totalCount]="totalCount"
-		          [columns]="columns">
-		</st-table>
+		<div class="table" *ngIf="hasData && !isLoading, else noDataTemplate">
+			<st-table [data]="repositories"
+			          [columns]="columns">
+			</st-table>
+			<p-paginator [rows]="pageInfo.perPage"
+			             [first]="pageInfo.firstElementOnPage"
+			             [totalRecords]="totalCount"
+			             [rowsPerPageOptions]="rowsPerPageOptions"
+			             [showCurrentPageReport]="true"
+			             [currentPageReportTemplate]="'Showing {first} to {last} of {totalRecords} repositories'"
+			             (onPageChange)="paginate($event)">
+			</p-paginator>
+		</div>
 		<ng-template #noDataTemplate>
 			<st-no-data [isLoading]="isLoading"></st-no-data>
 		</ng-template>
