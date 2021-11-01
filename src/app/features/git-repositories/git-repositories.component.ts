@@ -30,8 +30,8 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 	public columns!: Array<IColumnConfig>;
 
 	public filterConfig!: FilterConfig<GitRepositoriesFilterResultDto>;
-	public pageInfo: IPageInfoDto = { page: 1, perPage: 10, firstElementOnPage: 0 };
-	public rowsPerPageOptions: number[] = [this.pageInfo.perPage, this.pageInfo.perPage * 2, this.pageInfo.perPage * 3]
+	public pageInfo!: IPageInfoDto;
+	public rowsPerPageOptions!: number[];
 
 	private openedModal!: DynamicDialogRef;
 	private destroy$: Subject<void> = new Subject<void>();
@@ -43,6 +43,8 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
+		this.setDefaultPageInfo();
+		this.initPaginatorOptions();
 		this.initColumns();
 		this.initFilterConfig();
 		this.loadRepositories();
@@ -80,10 +82,11 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 				takeUntil(this.destroy$),
 			)
 			.subscribe((data) => {
-				if (!!data) {
+				if (!!data && !!data.items && data.items.length) {
 					this.repositories = data.items;
 					this.totalCount = data.total_count;
 				} else {
+					this.setDefaultPageInfo();
 					this.repositories = [];
 					this.totalCount = 0;
 				}
@@ -102,6 +105,14 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 			contentStyle: {"max-height": "500px", "overflow": "auto"},
 			baseZIndex: 10000
 		});
+	}
+
+	private setDefaultPageInfo(): void {
+		this.pageInfo = { page: 1, perPage: 10, firstElementOnPage: 0 };
+	}
+
+	private initPaginatorOptions(): void {
+		this.rowsPerPageOptions = [this.pageInfo.perPage, this.pageInfo.perPage * 2, this.pageInfo.perPage * 3];
 	}
 
 	private initColumns(): void {
@@ -131,6 +142,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 			],
 			resultDto: GitRepositoriesFilterResultDto.getDefaultDto()
 		}
+		console.log(this.filterConfig.fields);
 	}
 
 	private getModalBodyByError(httpErrorResponse: HttpErrorResponse): string {
