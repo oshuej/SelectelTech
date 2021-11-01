@@ -1,7 +1,7 @@
 
 export class GitRepositoriesFilterResultDto {
-	public username!: string | null;
-	public repoName!: string | null;
+	public username!: string;
+	public repoName!: string;
 
 	public static getDefaultDto(): GitRepositoriesFilterResultDto {
 		const defaultDto: GitRepositoriesFilterResultDto = new GitRepositoriesFilterResultDto();
