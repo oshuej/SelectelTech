@@ -11,6 +11,8 @@ export class StFilter<T> {
 
 	@Input()
 	public filterConfig!: FilterConfig<T>;
+	@Input()
+	public searchInProgress!: boolean;
 
 	@Output()
 	public onFilterChanged: EventEmitter<T> = new EventEmitter<T>();

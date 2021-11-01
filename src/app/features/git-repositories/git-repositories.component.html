@@ -1,6 +1,7 @@
 <st-basic-page-layout>
 	<ng-container main-content>
 		<st-filter [filterConfig]="filterConfig"
+		           [searchInProgress]="isLoading"
 		           (onFilterChanged)="onFilterChanged()">
 		</st-filter>
 		<div class="table" *ngIf="hasData && !isLoading, else noDataTemplate">

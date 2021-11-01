@@ -32,7 +32,7 @@
 			        type="submit"
 			        label="Apply"
 			        class="p-button-rounded"
-			        [disabled]="!filterForm.form.valid">
+			        [disabled]="searchInProgress || !filterForm.form.valid">
 			</button>
 		</div>
 	</form>
