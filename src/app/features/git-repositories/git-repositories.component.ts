@@ -142,7 +142,6 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 			],
 			resultDto: GitRepositoriesFilterResultDto.getDefaultDto()
 		}
-		console.log(this.filterConfig.fields);
 	}
 
 	private getModalBodyByError(httpErrorResponse: HttpErrorResponse): string {
