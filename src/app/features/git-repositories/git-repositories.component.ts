@@ -12,6 +12,7 @@ import {
 import { GitRepositoriesFilterResultDto } from './dto/git-repositories-filter-result.dto';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'git-repositories',
@@ -34,7 +35,9 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 	private destroy$: Subject<void> = new Subject<void>();
 
 	constructor(private gitPublicApiService: GitPublicApiService,
-	            private dialogService: DialogService) {
+	            private dialogService: DialogService,
+	            private router: Router,
+	            private activatedRoute: ActivatedRoute) {
 	}
 
 	ngOnInit(): void {
@@ -54,6 +57,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 
 	private loadRepositories(): void {
 		this.isLoading = true;
+		this.setFilterResultDtoQueryToUrl();
 		this.gitPublicApiService.getRepositories(this.filterConfig.resultDto)
 			.pipe(
 				finalize(() => {
@@ -151,5 +155,18 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 
 	private closeModal(): void {
 		this.openedModal.close();
+	}
+
+	private setFilterResultDtoQueryToUrl(): void {
+		const queryParamsFromFilter: GitRepositoriesFilterResultDto | Partial<GitRepositoriesFilterResultDto>
+			= new GitRepositoriesFilterResultDto();
+		this.filterConfig.fields.forEach((field) => {
+			if (!!this.filterConfig.resultDto[field.ngModelName] && this.filterConfig.resultDto[field.ngModelName]?.length) {
+				queryParamsFromFilter[field.ngModelName] = this.filterConfig.resultDto[field.ngModelName];
+			}
+		});
+		this.router.navigate(['.'], {
+			relativeTo: this.activatedRoute, queryParams: queryParamsFromFilter
+		});
 	}
 }
