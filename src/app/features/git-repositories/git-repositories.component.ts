@@ -59,7 +59,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 
 	public paginate(pagination: IPagination): void {
 		this.pageInfo.perPage = pagination.rows;
-		this.pageInfo.page = pagination.page + 1; // + 1, because paginator starting count by 0, by github api by 1
+		this.pageInfo.page = pagination.page + 1; // +1 because paginator starts counting at 0, by github api at 1
 		this.pageInfo.firstElementOnPage = pagination.first;
 		this.loadRepositories();
 	}
