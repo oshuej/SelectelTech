@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IGitSearchResultDto } from './dto/git-search-result.dto';
 import { GitRepositoriesFilterResultDto } from '../../../../../app/features/git-repositories/dto/git-repositories-filter-result.dto';
@@ -22,7 +22,8 @@ export class GitPublicApiService {
 		params = params.append('type', 'Repositories');
 		params = params.append('per_page', pageInfo.perPage);
 		params = params.append('page', pageInfo.page);
-		return this.httpClient.get<IGitSearchResultDto<IGitRepositoriesSearchItemDto>>(URL_CONSTANTS.GIT_SEARCH.REPOSITORIES, { params });
+		const headers: HttpHeaders = new HttpHeaders({ accept: 'application/vnd.github.v3+json' });
+		return this.httpClient.get<IGitSearchResultDto<IGitRepositoriesSearchItemDto>>(URL_CONSTANTS.GIT_SEARCH.REPOSITORIES, { params, headers });
 	}
 
 	private getQueryFromFilterDto(dto: GitRepositoriesFilterResultDto): string {
