@@ -167,8 +167,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 	}
 
 	private setFilterResultDtoQueryToUrl(): void {
-		const queryParamsFromFilter: GitRepositoriesFilterResultDto | Partial<GitRepositoriesFilterResultDto>
-			= new GitRepositoriesFilterResultDto();
+		const queryParamsFromFilter: Partial<GitRepositoriesFilterResultDto> = new GitRepositoriesFilterResultDto();
 		this.filterConfig.fields.forEach((field) => {
 			if (!!this.filterConfig.resultDto[field.ngModelName] && this.filterConfig.resultDto[field.ngModelName]?.length) {
 				queryParamsFromFilter[field.ngModelName] = this.filterConfig.resultDto[field.ngModelName];
