@@ -1,24 +1,39 @@
 <div class="st-filter-container">
+	<form #filterForm="ngForm" (ngSubmit)="onSubmit()">
 
-	<div class="st-filter-fields-container">
-		<ng-container *ngFor="let field of filterConfig.fields">
-			<div class="st-filter-field">
-				<label class="label">
-					<span>{{field.label}}</span>
-					<em *ngIf="field.required" class="required">*</em>
-				</label>
-				<span class="p-input-icon-left">
+		<div class="st-filter-fields-container">
+			<ng-container *ngFor="let field of filterConfig.fields">
+				<div class="st-filter-field">
+					<label class="label">
+						<span>{{field.label}}</span>
+						<em *ngIf="field.required" class="required">*</em>
+					</label>
+					<span class="p-input-icon-left">
 						<i class="pi pi-search"></i>
 						<input type="text"
 						       pInputText
-						       placeholder="{{field.label}}"
+						       [placeholder]="field.label"
+						       [name]="field.ngModelName"
+						       [required]="!!field.required"
+						       [minlength]="field.minLength"
+						       [maxLength]="field.maxLength"
 						       [(ngModel)]="filterConfig.resultDto[field.ngModelName]"/>
 					</span>
-			</div>
-		</ng-container>
-	</div>
+					<div *ngIf="!!filterForm.form.controls[field.ngModelName] && !filterForm.form.controls[field.ngModelName]?.valid"
+					     class="error-message">
+						{{getErrorMessage(filterForm.form.controls[field.ngModelName])}}
+					</div>
+				</div>
+			</ng-container>
+		</div>
 
-	<div class="btn-group">
-		<button pButton type="button" label="Apply" class="p-button-rounded" (click)="onApplyClicked()"></button>
-	</div>
+		<div class="btn-group">
+			<button pButton
+			        type="submit"
+			        label="Apply"
+			        class="p-button-rounded"
+			        [disabled]="!filterForm.form.valid">
+			</button>
+		</div>
+	</form>
 </div>

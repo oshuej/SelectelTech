@@ -4,10 +4,10 @@ import { catchError, finalize, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
 import {
 	IColumnConfig,
-	IFilterConfig,
+	FilterConfig,
 	StConfigurableModalConfig,
 	StConfigurableModalComponent,
-	StConfigurableModalButtonConfig
+	StConfigurableModalButtonConfig, FilterTextFieldConfig
 } from '@libs/common';
 import { GitRepositoriesFilterResultDto } from './dto/git-repositories-filter-result.dto';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -29,7 +29,7 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 
 	public columns!: Array<IColumnConfig>;
 
-	public filterConfig!: IFilterConfig<GitRepositoriesFilterResultDto>;
+	public filterConfig!: FilterConfig<GitRepositoriesFilterResultDto>;
 	public pageInfo: IPageInfoDto = { page: 1, perPage: 10, firstElementOnPage: 0 };
 	public rowsPerPageOptions: number[] = [this.pageInfo.perPage, this.pageInfo.perPage * 2, this.pageInfo.perPage * 3]
 
@@ -119,18 +119,17 @@ export class GitRepositoriesComponent implements OnInit, OnDestroy {
 		]
 	}
 
-	private applyFilterValidator = (filterConfig: IFilterConfig<GitRepositoriesFilterResultDto>): boolean => {
-		return !!filterConfig.resultDto.repoName && filterConfig.resultDto.repoName.length > 2;
-	}
-
 	private initFilterConfig(): void {
 		this.filterConfig = {
 			fields: [
-				{ label: 'Username', ngModelName: 'username', required: false },
-				{ label: 'Repository Name', ngModelName: 'repoName', required: true }
+				FilterTextFieldConfig.init<GitRepositoriesFilterResultDto>(
+					{ label: 'Username', ngModelName: 'username', required: false }
+				),
+				FilterTextFieldConfig.init<GitRepositoriesFilterResultDto>(
+					{ label: 'Repository Name', ngModelName: 'repoName', required: true, minLength: 3 }
+				)
 			],
-			resultDto: GitRepositoriesFilterResultDto.getDefaultDto(),
-			applyFilterValidator: this.applyFilterValidator
+			resultDto: GitRepositoriesFilterResultDto.getDefaultDto()
 		}
 	}
 

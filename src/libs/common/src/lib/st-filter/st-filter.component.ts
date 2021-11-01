@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IFilterConfig } from './dto/filter-config';
+import { FilterConfig } from './dto/filter-config';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
 	selector: 'st-filter',
@@ -9,7 +10,7 @@ import { IFilterConfig } from './dto/filter-config';
 export class StFilter<T> {
 
 	@Input()
-	public filterConfig!: IFilterConfig<T>;
+	public filterConfig!: FilterConfig<T>;
 
 	@Output()
 	public onFilterChanged: EventEmitter<T> = new EventEmitter<T>();
@@ -17,11 +18,19 @@ export class StFilter<T> {
 	constructor() {
 	}
 
-	public onApplyClicked(): void {
-		if (!this.filterConfig.applyFilterValidator ||
-			(!!this.filterConfig.applyFilterValidator && this.filterConfig.applyFilterValidator(this.filterConfig))) {
-			this.onFilterChanged.emit(this.filterConfig.resultDto);
-		}
+	public getErrorMessage(control: AbstractControl): string {
+		return control.hasError('minlength') ? COMMON_ERRORS_HANDLERS.minlength(control): COMMON_ERRORS_HANDLERS.required(control);
 	}
 
+	public onSubmit(): void {
+		this.onFilterChanged.emit(this.filterConfig.resultDto);
+	}
+
+}
+
+
+// todo should be moved to the library in the future
+export const COMMON_ERRORS_HANDLERS: { [p: string]: (control: AbstractControl) => string } = {
+	minlength: (control) => `The minimum length is ${control.getError('minlength').requiredLength} Characters!`,
+	required: () => 'Field is Required'
 }
